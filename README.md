@@ -1,6 +1,10 @@
 # dommali-utils #
 
-additional utility functions for DOMMaLi
+various utility functions for DOMMaLi
+
+`dommali-utils` extends the [dommali](https://github.com/rozek/dommali) library by several utility methods which implement various event handling functions, e.g., for element dragging or non-native drag-and-drop.
+
+> Please note, that this module is currently under active development - do not expect a stable release before end of January 2023
 
 
 
