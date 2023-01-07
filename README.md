@@ -8,6 +8,19 @@ various utility functions for DOMMaLi
 
 
 
+## API ##
+
+
+
+
+
+## Programming Manual ##
+
+### Simple Dragging ###
+
+(example see [JSBin](https://jsbin.com/nipuyujahe))
+
+
 
 
 
