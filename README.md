@@ -18,7 +18,7 @@ various utility functions for DOMMaLi
 
 ### Simple Dragging ###
 
-(example see [JSBin](https://jsbin.com/nipuyujahe))
+(example see [JSBin](https://jsbin.com/qomisod))
 
 
 
