@@ -27,8 +27,9 @@
     "javascript",
     "typescript",
     "jquery",
-    "dom-manipulation",
-    "fluent-api"
+    "event-handling",
+    "drag",
+    "drag-and-drop"
   ],
   "author": "Andreas Rozek <a.rozek@gmx.de> (https://www.rozek.de/)",
   "license": "MIT",
