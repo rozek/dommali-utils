@@ -1,6 +1,6 @@
 {
   "name": "dommali-utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "various utility functions for the DOMMaLi library",
   "type": "module",
   "main": "./dist/dommali-utils.js",
@@ -44,6 +44,6 @@
     "rollup": "^2.52.1",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.3.3",
-    "dommali":"^0.2.4"
+    "dommali": "^0.2.4"
   }
 }
