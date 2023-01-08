@@ -16,8 +16,8 @@ various utility functions for DOMMaLi
 
 Dragging recognizers support the following `DraggingOptions` - all of them are optional:
 
-* **`onlyFrom:string`**<br> 
-* **`neverFrom:string`**<br> 
+* **`onlyFrom:string`**<br>if given, only PointerEvents originating from an inner element matching the CSS selector `onlyFrom` will be considered, all others will be ignored. `onlyFrom` may be combined with `neverFrom`
+* **`neverFrom:string`**<br>if given, PointerEvents originating from an inner element matching the CSS selector `neverFrom` will be ignored. `neverFrom` may be combined with `onlyFrom`
 * **`initialDirection:DraggingDirection`**<br> 
 * **`minOffsetX:number`**<br> 
 * **`minOffsetY:number`**<br> 
@@ -35,7 +35,7 @@ Dragging recognizers support the following `DraggingOptions` - all of them are o
 
 #### Delegated Recognition ####
 
-The following methods use delegated event handlers for dragging recognition. They listen for PointerEvents originating at any element matching a given `Selector` and trigger events at the `dommali` objects the methods have been applied to.
+The following methods use delegated event handlers for dragging recognition. They listen for PointerEvents originating from any element matching a given `Selector` and trigger events at the `dommali` objects the methods have been applied to.
 
 * **`reportsDraggingFor (Selector:string):boolean`**<br>
 * **`reportDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>
