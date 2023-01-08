@@ -12,7 +12,20 @@ various utility functions for DOMMaLi
 
 ### Dragging Recognition ###
 
-`reportDragging` and `reportDraggingFor` install event handlers which listen for PointerEvents, recognize dragging gestures and trigger matching `dragging-started`, `dragging-continued`, `dragging-finished` and `dragging-aborted` events. These may then be listened for in order to implement the actual element dragging (see corresponding examples in the Programming Manual)
+`reportDragging` and `reportDraggingFor` install event handlers which listen for PointerEvents, recognize dragging gestures and trigger matching `dragging-started`, `dragging-continued`, `dragging-finished` and `dragging-aborted` events. These may then be listened for in order to implement the actual element dragging (see corresponding examples in the Programming Manual).
+
+Dragging recognizers support the following `DraggingOptions` - all of them are optional:
+
+* **`onlyFrom:string`**<br> 
+* **`neverFrom:string`**<br> 
+* **`initialDirection:DraggingDirection`**<br> 
+* **`minOffsetX:number`**<br> 
+* **`minOffsetY:number`**<br> 
+* **`Easing:number|boolean`**<br> 
+* **`stopPropagation:boolean`**<br> 
+* **`stopImmediatePropagation:boolean`**<br> 
+* **`Extras:any`**<br>
+
 
 #### Own Recognition ####
 
