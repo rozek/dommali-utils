@@ -22,9 +22,9 @@ Dragging recognizers support the following `DraggingOptions` - all of them are o
 * **`minOffsetX:number`**<br> 
 * **`minOffsetY:number`**<br> 
 * **`Easing:number|boolean`**<br> 
-* **`stopPropagation:boolean`**<br> 
-* **`stopImmediatePropagation:boolean`**<br> 
-* **`Extras:any`**<br>
+* **`stopPropagation:boolean`**<br>when set to `true`, propagation of intercepted PointerEvents will be stopped - otherwise they may "bubble" as usual
+* **`stopImmediatePropagation:boolean`**<br>when set to `true`, immediated propagation of intercepted PointerEvents will be stopped - otherwise they may be handled and "bubble" as usual
+* **`Extras:any`**<br>is an optional, user-defined value which is passed unmodified along any `dragging-xxx` event and may be used to differentiate between kinds of dragging within the same event handler
 
 
 #### Own Recognition ####
