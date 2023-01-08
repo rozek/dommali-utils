@@ -10,7 +10,19 @@ various utility functions for DOMMaLi
 
 ## API ##
 
+### Dragging Recognition ###
 
+#### Own Recognition ####
+
+* **`reportsDragging ():boolean`**<br>
+* **`reportDragging (Options?:DraggingOptions):DOMMaLi`**<br>
+* **`ignoreDragging ():DOMMaLi`**<br>
+
+#### Delegated Recognition ####
+
+* **`reportsDraggingFor (Selector:string):boolean`**<br>
+* **`reportDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>
+* **`ignoreDraggingFor (Selector:string):DOMMaLi`**<br>
 
 
 
