@@ -159,10 +159,9 @@ function normalizedDraggingOptions(Options) {
 /**** handleDraggingOf ****/
 function handleDraggingOf($Draggable, Event, Options) {
     return __awaiter(this, void 0, void 0, function () {
-        var onlyFrom, neverFrom, initialDirection, minOffsetX, minOffsetY, Easing, Extras, stopPropagation, stopImmediatePropagation, EventTarget, StartX, DraggingStarted, StartY, lastTime, vx, vy, PointerId;
-        var _this = this;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var onlyFrom, neverFrom, initialDirection, minOffsetX, minOffsetY, Easing, Extras, stopPropagation, stopImmediatePropagation, EventTarget, StartX, DraggingStarted, StartY, lastTime, vx, vy, PointerId, _a, curX, curY, absOffsetX, absOffsetY;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     if (Event.button !== 0) {
                         return [2 /*return*/];
@@ -192,83 +191,84 @@ function handleDraggingOf($Draggable, Event, Options) {
                             Event.stopImmediatePropagation();
                         }
                     }
-                    return [4 /*yield*/, $Draggable.repeatUntil('pointerup', 'pointercancel', function () { return __awaiter(_this, void 0, void 0, function () {
-                            var _a, curX, curY, absOffsetX, absOffsetY;
-                            return __generator(this, function (_b) {
-                                switch (_b.label) {
-                                    case 0: return [4 /*yield*/, $Draggable.waitFor('pointermove', 'pointerup', 'pointercancel')];
-                                    case 1:
-                                        Event = _b.sent();
-                                        if (DraggingStarted) {
-                                            if (stopPropagation == true) {
-                                                Event.stopPropagation();
-                                            }
-                                            if (stopImmediatePropagation == true) {
-                                                Event.stopImmediatePropagation();
-                                            }
-                                        }
-                                        _a = true;
-                                        switch (_a) {
-                                            case (Event.type === 'pointerup') && DraggingStarted: return [3 /*break*/, 2];
-                                            case (Event.type === 'pointercancel') && DraggingStarted: return [3 /*break*/, 7];
-                                        }
-                                        return [3 /*break*/, 8];
-                                    case 2:
-                                        curX = Event.pageX, curY = Event.pageY;
-                                        if (!((Easing != null) && (vx != 0) && (vy != 0))) return [3 /*break*/, 6];
-                                        _b.label = 3;
-                                    case 3: return [4 /*yield*/, $Draggable.waitFor(100)];
-                                    case 4:
-                                        _b.sent();
-                                        vx = Math.trunc(vx * Easing);
-                                        curX += vx;
-                                        vy = Math.trunc(vy * Easing);
-                                        curY += vy;
-                                        $Draggable.trigger('dragging-continued', [Extras, curX, curY, Event]);
-                                        _b.label = 5;
-                                    case 5:
-                                        if ((vx != 0) && (vy != 0)) return [3 /*break*/, 3];
-                                        _b.label = 6;
-                                    case 6:
-                                        $Draggable.trigger('dragging-finished', [Extras, curX, curY, Event]);
-                                        return [3 /*break*/, 9];
-                                    case 7:
-                                        $Draggable.trigger('dragging-aborted', [Extras, StartX, StartY, Event]);
-                                        return [3 /*break*/, 9];
-                                    case 8:
-                                        if (DraggingStarted) {
-                                            if ((Easing != null) && (Event.timeStamp !== lastTime)) {
-                                                vx = Math.trunc(100 * Event.movementX / (Event.timeStamp - lastTime));
-                                                vy = Math.trunc(100 * Event.movementY / (Event.timeStamp - lastTime));
-                                            }
-                                            $Draggable.trigger('dragging-continued', [Extras, Event.pageX, Event.pageY, Event]);
-                                        }
-                                        else {
-                                            if ((minOffsetX == null) || (Math.abs(Event.pageX - StartX) > minOffsetX) ||
-                                                (minOffsetY == null) || (Math.abs(Event.pageY - StartY) > minOffsetY)) {
-                                                absOffsetX = Math.abs(Event.pageX - StartX);
-                                                absOffsetY = Math.abs(Event.pageY - StartY);
-                                                if ((initialDirection === 'both') ||
-                                                    (initialDirection === 'x') && (absOffsetX > absOffsetY) ||
-                                                    (initialDirection === 'y') && (absOffsetX < absOffsetY)) {
-                                                    $Draggable.trigger('dragging-started', [Extras, Event.pageX, Event.pageY, StartX, StartY, Event]);
-                                                    DraggingStarted = true;
-                                                    if (stopPropagation == true) {
-                                                        Event.stopPropagation();
-                                                    }
-                                                    if (stopImmediatePropagation == true) {
-                                                        Event.stopImmediatePropagation();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        _b.label = 9;
-                                    case 9: return [2 /*return*/];
+                    _b.label = 1;
+                case 1: return [4 /*yield*/, $Draggable.waitFor('pointermove', 'pointerup', 'pointercancel')];
+                case 2:
+                    Event = _b.sent();
+                    if (Event.pointerId !== PointerId) {
+                        return [3 /*break*/, 11];
+                    }
+                    if (DraggingStarted) {
+                        if (stopPropagation == true) {
+                            Event.stopPropagation();
+                        }
+                        if (stopImmediatePropagation == true) {
+                            Event.stopImmediatePropagation();
+                        }
+                    }
+                    _a = true;
+                    switch (_a) {
+                        case (Event.type === 'pointerup') && DraggingStarted: return [3 /*break*/, 3];
+                        case (Event.type === 'pointercancel') && DraggingStarted: return [3 /*break*/, 8];
+                    }
+                    return [3 /*break*/, 9];
+                case 3:
+                    curX = Event.pageX, curY = Event.pageY;
+                    if (!((Easing != null) && (vx != 0) && (vy != 0))) return [3 /*break*/, 7];
+                    _b.label = 4;
+                case 4: return [4 /*yield*/, $Draggable.waitFor(100)];
+                case 5:
+                    _b.sent();
+                    vx = Math.trunc(vx * Easing);
+                    curX += vx;
+                    vy = Math.trunc(vy * Easing);
+                    curY += vy;
+                    $Draggable.trigger('dragging-continued', [Extras, curX, curY, Event]);
+                    _b.label = 6;
+                case 6:
+                    if ((vx != 0) && (vy != 0)) return [3 /*break*/, 4];
+                    _b.label = 7;
+                case 7:
+                    $Draggable.trigger('dragging-finished', [Extras, curX, curY, Event]);
+                    return [3 /*break*/, 10];
+                case 8:
+                    $Draggable.trigger('dragging-aborted', [Extras, StartX, StartY, Event]);
+                    return [3 /*break*/, 10];
+                case 9:
+                    if (DraggingStarted) {
+                        if ((Easing != null) && (Event.timeStamp !== lastTime)) {
+                            vx = Math.trunc(100 * Event.movementX / (Event.timeStamp - lastTime));
+                            vy = Math.trunc(100 * Event.movementY / (Event.timeStamp - lastTime));
+                        }
+                        $Draggable.trigger('dragging-continued', [Extras, Event.pageX, Event.pageY, Event]);
+                    }
+                    else {
+                        if ((minOffsetX == null) || (Math.abs(Event.pageX - StartX) > minOffsetX) ||
+                            (minOffsetY == null) || (Math.abs(Event.pageY - StartY) > minOffsetY)) {
+                            absOffsetX = Math.abs(Event.pageX - StartX);
+                            absOffsetY = Math.abs(Event.pageY - StartY);
+                            if ((initialDirection === 'both') ||
+                                (initialDirection === 'x') && (absOffsetX > absOffsetY) ||
+                                (initialDirection === 'y') && (absOffsetX < absOffsetY)) {
+                                $Draggable.trigger('dragging-started', [Extras, Event.pageX, Event.pageY, StartX, StartY, Event]);
+                                DraggingStarted = true;
+                                if (stopPropagation == true) {
+                                    Event.stopPropagation();
                                 }
-                            });
-                        }); })];
-                case 1:
-                    _a.sent();
+                                if (stopImmediatePropagation == true) {
+                                    Event.stopImmediatePropagation();
+                                }
+                            }
+                        }
+                    }
+                    _b.label = 10;
+                case 10:
+                    if ((Event.type === 'pointerup') || (Event.type === 'pointercancel')) {
+                        return [3 /*break*/, 12];
+                    }
+                    _b.label = 11;
+                case 11: return [3 /*break*/, 1];
+                case 12:
                     EventTarget.releasePointerCapture(PointerId);
                     return [2 /*return*/];
             }
