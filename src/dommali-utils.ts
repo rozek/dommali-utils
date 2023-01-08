@@ -174,8 +174,9 @@
         if (stopImmediatePropagation == true) { Event.stopImmediatePropagation() }
       }
 
-      await $Draggable.repeatUntil('pointerup','pointercancel', async () => {
+      for (;;) {
         Event = await $Draggable.waitFor('pointermove','pointerup','pointercancel')
+        if (Event.pointerId !== PointerId) { continue }
           if (DraggingStarted) {
             if (stopPropagation          == true) { Event.stopPropagation() }
             if (stopImmediatePropagation == true) { Event.stopImmediatePropagation() }
@@ -226,7 +227,8 @@
               }
             }
         }
-      })
+        if ((Event.type === 'pointerup') || (Event.type === 'pointercancel')) { break }
+      }
     EventTarget.releasePointerCapture(PointerId)
   }
 
