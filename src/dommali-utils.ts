@@ -118,8 +118,8 @@
         initialDirection = 'both'
       }
 
-      if (! ValueIsOrdinal(minOffsetX)) { minOffsetX = undefined }
-      if (! ValueIsOrdinal(minOffsetY)) { minOffsetY = undefined }
+      if (! ValueIsNumberInRange(minOffsetX, 0,Infinity, false)) { minOffsetX = undefined }
+      if (! ValueIsNumberInRange(minOffsetY, 0,Infinity, false)) { minOffsetY = undefined }
 
       if (Easing === true) { Easing = 0.5 }
       if (! ValueIsNumberInRange(Easing, 0,1, false,false)) {
