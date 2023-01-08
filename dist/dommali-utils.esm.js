@@ -97,14 +97,6 @@ function ValueIsNumberInRange(Value, minValue, maxValue, withMin, withMax) {
     }
     return true;
 }
-/**** ValueIsOrdinal ****/
-function ValueIsOrdinal(Value) {
-    if ((typeof Value !== 'number') && !(Value instanceof Number)) {
-        return false;
-    }
-    Value = Value.valueOf();
-    return isFinite(Value) && (Math.round(Value) === Value) && (Value >= 0);
-}
 /**** ValueIsString ****/
 function ValueIsString(Value) {
     return (typeof Value === 'string') || (Value instanceof String);
@@ -126,10 +118,10 @@ function normalizedDraggingOptions(Options) {
     if (!ValueIsOneOf(initialDirection, DraggingDirections)) {
         initialDirection = 'both';
     }
-    if (!ValueIsOrdinal(minOffsetX)) {
+    if (!ValueIsNumberInRange(minOffsetX, 0, Infinity, false)) {
         minOffsetX = undefined;
     }
-    if (!ValueIsOrdinal(minOffsetY)) {
+    if (!ValueIsNumberInRange(minOffsetY, 0, Infinity, false)) {
         minOffsetY = undefined;
     }
     if (Easing === true) {
