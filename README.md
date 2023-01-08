@@ -21,9 +21,9 @@ Dragging recognizers support the following `DraggingOptions` - all of them are o
 * **`initialDirection:DraggingDirection`**<br> 
 * **`minOffsetX:number`**<br> 
 * **`minOffsetY:number`**<br> 
-* **`Easing:number|boolean`**<br> 
-* **`stopPropagation:boolean`**<br>when set to `true`, propagation of intercepted PointerEvents will be stopped - otherwise they may "bubble" as usual
-* **`stopImmediatePropagation:boolean`**<br>when set to `true`, immediate propagation of intercepted PointerEvents will be stopped - otherwise they may be processed as usual
+* **`Easing:number|boolean`**<br>when set to a value between 0 and 1 (exclusively), the dragged element is given some "moment of inertia". This means that xxx
+* **`stopPropagation:boolean`**<br>when set to `true`, further propagation of intercepted PointerEvents will be stopped - otherwise they may "bubble" as usual
+* **`stopImmediatePropagation:boolean`**<br>when set to `true`, further handling and propagation of intercepted PointerEvents will be stopped
 * **`Extras:any`**<br>is an optional, user-defined value which is passed unmodified along any `dragging-xxx` event and may be used to differentiate between kinds of dragging within the same event handler
 
 
