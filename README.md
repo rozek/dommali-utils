@@ -22,6 +22,8 @@ various utility functions for DOMMaLi
 
 #### Delegated Recognition ####
 
+The following methods use delegated event handlers for dragging recognition. They listen for PointerEvents originating at any element matching a given `Selector` and trigger events at the `dommali` objects the methods have been applied to.
+
 * **`reportsDraggingFor (Selector:string):boolean`**<br>
 * **`reportDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>
 * **`ignoreDraggingFor (Selector:string):DOMMaLi`**<br>
