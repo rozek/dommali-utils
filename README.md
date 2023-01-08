@@ -20,7 +20,7 @@ Dragging recognizers support the following `DraggingOptions` - all of them are o
 * **`neverFrom:string`**<br>if given, PointerEvents originating from an inner element matching the CSS selector `neverFrom` will be ignored. `neverFrom` may be combined with `onlyFrom`
 * **`initialDirection:DraggingDirection`**<br> 
 * **`minOffsetX:number`**<br> 
-* **`minOffsetY:number`**<br> 
+* **`minOffsetY:number`**<br>when set to 0, dragging immediately starts with the initial `pointerdown` event. When set to a value > 0, xxx
 * **`Easing:number|boolean`**<br>when set to a value between 0 and 1 (exclusively), dragged elements are given some "moment of inertia". This means that dragged elements with a velocity > 0 at the moment of a `pointerup` event will continue to move in their last direction (and trigger `dragging-continued` events) until (simulated) "friction" stops them. The extra events will be triggered every 100ms, and from one event to the next the dragged object's velocity (measured in pixels per second) will be multiplied with the given `Easing` factor until it falls below 10px/s. `dragging-finished` will only be triggered after the dragged elements have stopped moving
 * **`stopPropagation:boolean`**<br>when set to `true`, further propagation of intercepted PointerEvents will be stopped - otherwise they may "bubble" as usual
 * **`stopImmediatePropagation:boolean`**<br>when set to `true`, further handling and propagation of intercepted PointerEvents will be stopped
