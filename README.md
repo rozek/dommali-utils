@@ -26,8 +26,9 @@ Dragging recognizers support the following `DraggingOptions` - all of them are o
 * **`stopImmediatePropagation:boolean`**<br>if set to `true`, further handling and propagation of intercepted PointerEvents will be stopped
 * **`Extras:any`**<br>is an optional, user-defined value which is passed unmodified along any `dragging-xxx` event and may be used to differentiate between kinds of dragging within the same event handler
 
-
 #### Own Recognition ####
+
+The following methods may be applied to `dommali` objects which are themselves "draggable".
 
 * **`reportsDragging ():boolean`**<br>
 * **`reportDragging (Options?:DraggingOptions):DOMMaLi`**<br>
