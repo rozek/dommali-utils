@@ -50,9 +50,36 @@ Multiple delegated recognizers with different selectors may be installed in the 
 
 ## Programming Manual ##
 
-### Simple Dragging ###
+### Basic Dragging ###
 
-(example see [JSBin](https://jsbin.com/qomisod))
+The first example (see [JSBin](https://jsbin.com/qomisod)) illustrates how to install a dragging recognizer and listen for its `dragging-xxx` events:
+
+```
+  const $ = dommali
+  $(() => {
+    $('#Arena').recognizeDragging({ minOffsetX:4, minOffsetY:4 })
+
+    let OffsetX = $('#Arena').positionOnPage().left
+    let OffsetY = $('#Arena').positionOnPage().top
+
+    $('#Arena').on('dragging-started',async function (Event) {
+      this.append('<div id="horizontalLine"></div>')
+      this.append('<div id="verticalLine"></div>')
+
+      await this.repeatUntil('dragging-finished','dragging-aborted',async () => {
+        let [Extras, curX,curY] = $.extraParametersOfEvent(Event)
+
+        $('#horizontalLine').css('top', (curY-OffsetY) + 'px')
+        $('#verticalLine')  .css('left',(curX-OffsetX) + 'px')
+
+        Event = await this.waitFor('dragging-continued','dragging-finished','dragging-aborted')
+      })
+
+      $('#horizontalLine').remove()
+      $('#verticalLine').remove()
+    })
+  })
+```
 
 
 
