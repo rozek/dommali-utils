@@ -175,12 +175,19 @@
       }
 
       for (;;) {
-        Event = await $Draggable.waitFor('pointermove','pointerup','pointercancel')
-        if (Event.pointerId !== PointerId) { continue }
+        Event = await $Draggable.waitFor('pointerdown','pointermove','pointerup','pointercancel')
+        if (Event.pointerId !== PointerId) {
           if (DraggingStarted) {
-            if (stopPropagation          == true) { Event.stopPropagation() }
-            if (stopImmediatePropagation == true) { Event.stopImmediatePropagation() }
+            $Draggable.trigger('dragging-aborted',[Extras, StartX,StartY, Event])
           }
+          break
+        }
+
+        if (DraggingStarted) {
+          if (stopPropagation          == true) { Event.stopPropagation() }
+          if (stopImmediatePropagation == true) { Event.stopImmediatePropagation() }
+        }
+
         switch (true) {
           case (Event.type === 'pointerup') && DraggingStarted:
             let curX = Event.pageX, curY = Event.pageY
