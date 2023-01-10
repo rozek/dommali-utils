@@ -10,35 +10,36 @@ various utility functions for DOMMaLi
 
 ## API ##
 
-### Dragging Recognition ###
+### Dragging Recognizer ###
 
-`reportDragging` and `reportDraggingFor` install event handlers which listen for PointerEvents, recognize dragging gestures and trigger matching `dragging-started`, `dragging-continued`, `dragging-finished` and `dragging-aborted` events. These may then be listened for in order to implement the actual element dragging (see corresponding examples in the Programming Manual).
+`recognizeDragging` and `recognizeDraggingFor` install event handlers which listen for PointerEvents, recognize dragging gestures and trigger matching `dragging-started`, `dragging-continued`, `dragging-finished` and `dragging-aborted` events. These may then be listened for in order to implement the actual element dragging (see corresponding examples in the Programming Manual).
 
 Dragging recognizers support the following `DraggingOptions` - all of them are optional:
 
 * **`onlyFrom:string`**<br>if given, only PointerEvents originating from an inner element matching the CSS selector `onlyFrom` will be considered, all others will be ignored. `onlyFrom` may be combined with `neverFrom`
 * **`neverFrom:string`**<br>if given, PointerEvents originating from an inner element matching the CSS selector `neverFrom` will be ignored. `neverFrom` may be combined with `onlyFrom`
-* **`initialDirection:DraggingDirection`**<br> 
-* **`minOffsetX:number`**<br> 
-* **`minOffsetY:number`**<br>when set to 0, dragging immediately starts with the initial `pointerdown` event. When set to a value > 0, xxx
-* **`Easing:number|boolean`**<br>when set to a value between 0 and 1 (exclusively), dragged elements are given some "moment of inertia". This means that dragged elements with a velocity > 0 at the moment of a `pointerup` event will continue to move in their last direction (and trigger `dragging-continued` events) until (simulated) "friction" stops them. The extra events will be triggered every 100ms, and from one event to the next the dragged object's velocity (measured in pixels per second) will be multiplied with the given `Easing` factor until it falls below 10px/s. `dragging-finished` will only be triggered after the dragged elements have stopped moving
-* **`stopPropagation:boolean`**<br>when set to `true`, further propagation of intercepted PointerEvents will be stopped - otherwise they may "bubble" as usual
-* **`stopImmediatePropagation:boolean`**<br>when set to `true`, further handling and propagation of intercepted PointerEvents will be stopped
+* **`initialDirection:DraggingDirection`**<br>may be set to `x`, `y` or `both`. When set to `x` or `y`, dragging will only be started if the pointer has moved in the given direction at the moment dragging will be recognized (as given by `minOffsetX` and `minOffsetY`) - otherwise dragging will be ignored
+* **`minOffsetX:number`**<br>if set to 0, dragging immediately starts with the initial `pointerdown` event. When set to a value > 0, `dragging-started` will be delayed until the pointer has moved at least `minOffsetX` or `minOffsetY` pixels from the point reported by `pointerdown` (whatever comes first)
+* **`minOffsetY:number`**<br>if set to 0, dragging immediately starts with the initial `pointerdown` event. When set to a value > 0, `dragging-started` will be delayed until the pointer has moved at least `minOffsetX` or `minOffsetY` pixels from the point reported by `pointerdown` (whatever comes first)
+* **`Easing:number|boolean`**<br>if set to a value between 0 and 1 (exclusively), dragged elements are given some "moment of inertia". This means that dragged elements with a velocity > 0 at the moment of a `pointerup` event will continue to move in their last direction (and trigger `dragging-continued` events) until (simulated) "friction" stops them. The extra events will be triggered every 100ms, and from one event to the next the dragged object's velocity (measured in pixels per second) will be multiplied with the given `Easing` factor until it falls below 10px/s. `dragging-finished` will only be triggered after the dragged elements have stopped moving
+* **`stopPropagation:boolean`**<br>if set to `true`, further propagation of intercepted PointerEvents will be stopped - otherwise they may "bubble" as usual
+* **`stopImmediatePropagation:boolean`**<br>if set to `true`, further handling and propagation of intercepted PointerEvents will be stopped
 * **`Extras:any`**<br>is an optional, user-defined value which is passed unmodified along any `dragging-xxx` event and may be used to differentiate between kinds of dragging within the same event handler
 
+#### Element-specific Recognizer ####
 
-#### Own Recognition ####
+The following methods may be applied to `dommali` objects which are themselves "draggable".
 
-* **`reportsDragging ():boolean`**<br>
-* **`reportDragging (Options?:DraggingOptions):DOMMaLi`**<br>
+* **`recognizesDragging ():boolean`**<br>
+* **`recognizeDragging (Options?:DraggingOptions):DOMMaLi`**<br>
 * **`ignoreDragging ():DOMMaLi`**<br>
 
 #### Delegated Recognition ####
 
 The following methods use delegated event handlers for dragging recognition. They listen for PointerEvents originating from any element matching a given `Selector` and trigger events at the `dommali` objects the methods have been applied to.
 
-* **`reportsDraggingFor (Selector:string):boolean`**<br>
-* **`reportDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>
+* **`recognizesDraggingFor (Selector:string):boolean`**<br>
+* **`recognizeDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>
 * **`ignoreDraggingFor (Selector:string):DOMMaLi`**<br>
 
 
