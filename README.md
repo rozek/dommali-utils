@@ -28,17 +28,17 @@ Dragging recognizers support the following `DraggingOptions` - all of them are o
 
 #### Element-specific Recognizer ####
 
-The following methods may be applied to `dommali` objects which are themselves "draggable".
+The following methods may be applied to `dommali` objects which shall become "draggable" in their own specific way.
 
-* **`recognizesDragging ():boolean`**<br>
+* **`recognizesDragging ():boolean`**<br>returns `true` if a specific dragging recognizer is currently installed in `this` `dommali` object - of `false` otherwise
 * **`recognizeDragging (Options?:DraggingOptions):DOMMaLi`**<br>
 * **`ignoreDragging ():DOMMaLi`**<br>
 
 #### Delegated Recognition ####
 
-The following methods use delegated event handlers for dragging recognition. They listen for PointerEvents originating from any element matching a given `Selector` and trigger events at the `dommali` objects the methods have been applied to.
+The following methods use delegated event handlers for dragging recognition. They detect dragging estures for any element matching a given `Selector` and trigger corresponding events at the `dommali` objects the methods have been applied to. Delegated event handlers reduce the implementation effort if multiple elements should be treated in a similar way.
 
-* **`recognizesDraggingFor (Selector:string):boolean`**<br>
+* **`recognizesDraggingFor (Selector:string):boolean`**<br>returns `true` if a delegated dragging recognizer for elements matching the given `Selector` is currently installed in `this` `dommali` object - of `false` otherwise
 * **`recognizeDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>
 * **`ignoreDraggingFor (Selector:string):DOMMaLi`**<br>
 
