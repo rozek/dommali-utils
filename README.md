@@ -52,7 +52,7 @@ Multiple delegated recognizers with different selectors may be installed in the 
 
 ### Basic Dragging ###
 
-The first example (see [JSBin](https://jsbin.com/qomisod)) illustrates how to install a dragging recognizer and listen for its `dragging-xxx` events:
+The first example (see [JSBin](https://jsbin.com/qomisod)) illustrates how to install a dragging recognizer in a `<div/>` called `#Arena` and listen for its `dragging-xxx` events in order to draw some crosshairs at the current dragging position:
 
 ```
   const $ = dommali
