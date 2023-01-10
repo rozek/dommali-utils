@@ -52,10 +52,10 @@ Based on the "Dragging Recognizers" described above, `provideSimpleDragging` and
 
 These implementations may be customized using the following `simpleDraggingOptions` which extend the `DraggingOptions` already mentioned above - again, all settings are optional:
 
-* **`leftLimit`**<br>
-* **`topLimit`**<br>
-* **`rightLimit`**<br>
-* **`bottomLimit`**<br>
+* **`leftLimit:number`**<br>if specified, `leftLimit` keeps the left edge of a dragged element the given number of pixels away from the left edge of its parent (in the same way as the CSS property `left` positions a DOM element within its offset parent)
+* **`topLimit:number`**<br>if specified, `topLimit` keeps the top edge of a dragged element the given number of pixels away from the top edge of its parent (in the same way as the CSS property `top` positions a DOM element within its offset parent)
+* **`rightLimit:number`**<br>if specified, `rightLimit` keeps the left edge of a dragged element the given number of pixels away from the right edge of its parent (in the same way as the CSS property `right` positions a DOM element within its offset parent)
+* **`bottomLimit:number`**<br>if specified, `bottomLimit` keeps the top edge of a dragged element the given number of pixels away from the bottom edge of its parent (in the same way as the CSS property `bottom` positions a DOM element within its offset parent)
 
 Typical usage looks like below (navigate to [JSBin](https://jsbin.com/hemomar) to try it yourself)
 
