@@ -36,7 +36,7 @@ At most one specific recognizer may be installed per `dommali` object.
 * **`recognizeDragging (Options?:DraggingOptions):DOMMaLi`**<br>installs a specific dragging recognizer with the (optionally) given `Options` in `this` dommali object (see above for a description of available `DraggingOptions`). If there is already a specific recognizer installed in `this` object, it is implicitly uninstalled before installing the new one (using `ignoreDragging`)
 * **`ignoreDragging ():DOMMaLi`**<br>uninstalls the currently installed specific dragging recognizer from `this` dommali object - it is ok to call `ignoreDragging` even if such a recognizer is actually missing
 
-#### Delegated Recognition ####
+#### Delegated Recognizer ####
 
 The following methods use delegated event handlers for dragging recognition. They detect dragging estures for any element matching a given `Selector` and trigger corresponding events at the `dommali` objects the methods have been applied to. Delegated event handlers reduce the implementation effort if multiple elements should be treated in a similar way.
 
