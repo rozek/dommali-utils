@@ -46,6 +46,27 @@ Multiple delegated recognizers with different selectors may be installed in the 
 * **`recognizeDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>installs a delegated dragging recognizer with the (optionally) given `Options` for elements matching the given `Selector` in `this` dommali object (see above for a description of available `DraggingOptions`). If there is already a recognizer with the same `Selector` installed in `this` object, it is implicitly uninstalled before installing the new one (using `ignoreDraggingFor(Selector)`)
 * **`ignoreDraggingFor (Selector:string):DOMMaLi`**<br>uninstalls the currently installed delegated dragging recognizer for elements matching the given `Selector` from `this` dommali object - it is ok to call `ignoreDraggingFor` even if such a recognizer is actually missing
 
+### Simple Dragging ###
+
+Based on the "Dragging Recognizers" described above, `provideSimpleDragging` and `provideSimpleDraggingFor` provide directly usable implementations for elements which may be dragged around within their parents.
+
+These implementations may be customized using the following `simpleDraggingOptions` which extend the `DraggingOptions` which were already mentioned above - again, all settings are optional:
+
+* **`leftLimit`**<br>
+* **`topLimit`**<br>
+* **`rightLimit`**<br>
+* **`bottomLimit`**<br>
+
+#### Element-specific Dragging ####
+
+* **`provideSimpleDragging (Options?:simpleDraggingOptions):void`**<br>
+
+#### Delegated Dragging ####
+
+* **`provideSimpleDraggingFor (Selector:string, Options?:simpleDraggingOptions):void`**<br>
+
+
+
 
 
 ## Programming Manual ##
