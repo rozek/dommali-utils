@@ -10,9 +10,9 @@ various utility functions for DOMMaLi
 
 ## API ##
 
-### Dragging Recognition ###
+### Dragging Recognizer ###
 
-`reportDragging` and `reportDraggingFor` install event handlers which listen for PointerEvents, recognize dragging gestures and trigger matching `dragging-started`, `dragging-continued`, `dragging-finished` and `dragging-aborted` events. These may then be listened for in order to implement the actual element dragging (see corresponding examples in the Programming Manual).
+`recognizeDragging` and `recognizeDraggingFor` install event handlers which listen for PointerEvents, recognize dragging gestures and trigger matching `dragging-started`, `dragging-continued`, `dragging-finished` and `dragging-aborted` events. These may then be listened for in order to implement the actual element dragging (see corresponding examples in the Programming Manual).
 
 Dragging recognizers support the following `DraggingOptions` - all of them are optional:
 
@@ -26,20 +26,20 @@ Dragging recognizers support the following `DraggingOptions` - all of them are o
 * **`stopImmediatePropagation:boolean`**<br>if set to `true`, further handling and propagation of intercepted PointerEvents will be stopped
 * **`Extras:any`**<br>is an optional, user-defined value which is passed unmodified along any `dragging-xxx` event and may be used to differentiate between kinds of dragging within the same event handler
 
-#### Own Recognition ####
+#### Element-specific Recognizer ####
 
 The following methods may be applied to `dommali` objects which are themselves "draggable".
 
-* **`reportsDragging ():boolean`**<br>
-* **`reportDragging (Options?:DraggingOptions):DOMMaLi`**<br>
+* **`recognizesDragging ():boolean`**<br>
+* **`recognizeDragging (Options?:DraggingOptions):DOMMaLi`**<br>
 * **`ignoreDragging ():DOMMaLi`**<br>
 
 #### Delegated Recognition ####
 
 The following methods use delegated event handlers for dragging recognition. They listen for PointerEvents originating from any element matching a given `Selector` and trigger events at the `dommali` objects the methods have been applied to.
 
-* **`reportsDraggingFor (Selector:string):boolean`**<br>
-* **`reportDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>
+* **`recognizesDraggingFor (Selector:string):boolean`**<br>
+* **`recognizeDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>
 * **`ignoreDraggingFor (Selector:string):DOMMaLi`**<br>
 
 
