@@ -32,7 +32,7 @@ The following methods may be applied to `dommali` objects which shall become "dr
 
 * **`recognizesDragging ():boolean`**<br>returns `true` if a specific dragging recognizer is currently installed in `this` `dommali` object - of `false` otherwise
 * **`recognizeDragging (Options?:DraggingOptions):DOMMaLi`**<br>
-* **`ignoreDragging ():DOMMaLi`**<br>
+* **`ignoreDragging ():DOMMaLi`**<br>uninstalls the currently installed specific dragging recognizer from `this` `dommali` object - it is ok to call `ignoreDragging` even if such a recognizer is actually missing
 
 #### Delegated Recognition ####
 
@@ -40,7 +40,7 @@ The following methods use delegated event handlers for dragging recognition. The
 
 * **`recognizesDraggingFor (Selector:string):boolean`**<br>returns `true` if a delegated dragging recognizer for elements matching the given `Selector` is currently installed in `this` `dommali` object - of `false` otherwise
 * **`recognizeDraggingFor (Selector:string, Options?:DraggingOptions):DOMMaLi`**<br>
-* **`ignoreDraggingFor (Selector:string):DOMMaLi`**<br>
+* **`ignoreDraggingFor (Selector:string):DOMMaLi`**<br>uninstalls the currently installed delegated dragging recognizer for elements matching the given `Selector` from `this` `dommali` object - it is ok to call `ignoreDraggingFor` even if such a recognizer is actually missing
 
 
 
