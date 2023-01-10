@@ -57,7 +57,9 @@ These implementations may be customized using the following `simpleDraggingOptio
 * **`rightLimit:number`**<br>if specified, `rightLimit` keeps the left edge of a dragged element the given number of pixels away from the right edge of its parent (in the same way as the CSS property `right` positions a DOM element within its offset parent)
 * **`bottomLimit:number`**<br>if specified, `bottomLimit` keeps the top edge of a dragged element the given number of pixels away from the bottom edge of its parent (in the same way as the CSS property `bottom` positions a DOM element within its offset parent)
 
-Typical usage looks like below (navigate to [JSBin](https://jsbin.com/hemomar) to try it yourself)
+If `provideSimpleDragging` or `provideSimpleDraggingFor` are applied without previously installing a corresponding dragging recognizer, such a recognizer is implicitly installed using the given options.
+
+In the end, a typical application looks like below (navigate to [JSBin](https://jsbin.com/hemomar) to try it yourself)
 
 ```
    const $ = dommali
