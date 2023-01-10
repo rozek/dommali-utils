@@ -38,7 +38,7 @@ At most one specific recognizer may be installed per `dommali` object.
 
 #### Delegated Recognizer ####
 
-The following methods use delegated event handlers for dragging recognition. They detect dragging estures for any element matching a given `Selector` and trigger corresponding events at the `dommali` objects the methods have been applied to. Delegated event handlers reduce the implementation effort if multiple elements should be treated in a similar way.
+The following methods use delegated event handlers for dragging recognition. They detect dragging gestures for any element matching a given `Selector` and trigger corresponding events at the `dommali` objects the methods have been applied to. Delegated event handlers reduce the implementation effort if multiple elements should be treated in a similar way.
 
 Multiple delegated recognizers with different selectors may be installed in the same `dommali` object - but at most one per selector.
 
