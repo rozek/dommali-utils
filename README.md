@@ -57,6 +57,18 @@ These implementations may be customized using the following `simpleDraggingOptio
 * **`rightLimit`**<br>
 * **`bottomLimit`**<br>
 
+Typical usage looks like below (navigate to [JSBin](https://jsbin.com/hemomar) to try it yourself)
+
+```
+   const $ = dommali
+   $(() => {
+     $(document.body).provideSimpleDraggingFor('.Dialog',{
+       onlyFrom:'.Titlebar', neverFrom:'.CloseButton',
+       rightLimit:30, bottomLimit:30
+     })
+   })
+```
+
 #### Element-specific Dragging ####
 
 * **`provideSimpleDragging (Options?:simpleDraggingOptions):void`**<br>
