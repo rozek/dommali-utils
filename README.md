@@ -87,7 +87,7 @@ In the end, a typical application looks like below (navigate to [JSBin](https://
 
 ### Plain Dragging ###
 
-The first example (see [JSBin](https://jsbin.com/qomisod)) illustrates how to install a dragging recognizer in a `<div/>` called `#Arena` and listen for its `dragging-xxx` events in order to draw some crosshairs at the current dragging position:
+The first example (see [JSBin](https://jsbin.com/qomisod) for a live demo) illustrates how to install a dragging recognizer in a `<div/>` called `#Arena` and listen for its `dragging-xxx` events in order to draw some crosshairs at the current dragging position:
 
 ```
   const $ = dommali
@@ -120,7 +120,7 @@ The first example (see [JSBin](https://jsbin.com/qomisod)) illustrates how to in
 
 ### Window Dragging ###
 
-(see [JSBin](https://jsbin.com/hemomar))
+The following example (see [JSBin](https://jsbin.com/hemomar) for a live demo) illustrates how to make all elements with the CSS class `Dialog` draggable within their parent (which should usually be the whole document body, but is restricted to a given `<div/>` here in order to demonstrate the `rightLimit` and `bottomLimit` options):
 
 ```
    const $ = dommali
