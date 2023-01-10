@@ -184,11 +184,14 @@ function handleDraggingOf($Draggable, Event, Options) {
                         }
                     }
                     _b.label = 1;
-                case 1: return [4 /*yield*/, $Draggable.waitFor('pointermove', 'pointerup', 'pointercancel')];
+                case 1: return [4 /*yield*/, $Draggable.waitFor('pointerdown', 'pointermove', 'pointerup', 'pointercancel')];
                 case 2:
                     Event = _b.sent();
                     if (Event.pointerId !== PointerId) {
-                        return [3 /*break*/, 11];
+                        if (DraggingStarted) {
+                            $Draggable.trigger('dragging-aborted', [Extras, StartX, StartY, Event]);
+                        }
+                        return [3 /*break*/, 12];
                     }
                     if (DraggingStarted) {
                         if (stopPropagation == true) {
