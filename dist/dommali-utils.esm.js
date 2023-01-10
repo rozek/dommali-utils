@@ -268,12 +268,12 @@ function handleDraggingOf($Draggable, Event, Options) {
     });
 }
 Object.assign(DOMMaLiProto, {
-    /**** reportsDragging ****/
-    reportsDragging: function () {
+    /**** recognizesDragging ****/
+    recognizesDragging: function () {
         return this.recognizesDraggingFor('@this');
     },
-    /**** reportsDraggingFor ****/
-    reportsDraggingFor: function (Selector) {
+    /**** recognizesDraggingFor ****/
+    recognizesDraggingFor: function (Selector) {
         if ((Selector === '@this') || (Selector.trim() === '')) {
             Selector = '@this';
         }
@@ -281,12 +281,12 @@ Object.assign(DOMMaLiProto, {
             this.Subjects.every(function (Subject) { return ((Subject['_dommali_Dragging'] != null) &&
                 (typeof Subject['_dommali_Dragging'][Selector] === 'function')); }));
     },
-    /**** reportDragging ****/
-    reportDragging: function (Options) {
-        return this.reportDraggingFor('@this', Options);
+    /**** recognizeDragging ****/
+    recognizeDragging: function (Options) {
+        return this.recognizeDraggingFor('@this', Options);
     },
-    /**** reportDraggingFor ****/
-    reportDraggingFor: function (Selector, Options) {
+    /**** recognizeDraggingFor ****/
+    recognizeDraggingFor: function (Selector, Options) {
         if ((Selector === '@this') || (Selector.trim() === '')) {
             Selector = '@this';
         }
@@ -367,8 +367,8 @@ Object.assign(DOMMaLiProto, {
         if ((Selector === '@this') || (Selector.trim() === '')) {
             Selector = '@this';
         }
-        if (!this.reportsDraggingFor(Selector)) {
-            this.reportDraggingFor(Selector, Options);
+        if (!this.recognizesDraggingFor(Selector)) {
+            this.recognizeDraggingFor(Selector, Options);
         }
         var _a = normalizedSimpleDraggingOptions(Options), leftLimit = _a.leftLimit, topLimit = _a.topLimit, rightLimit = _a.rightLimit, bottomLimit = _a.bottomLimit, stopPropagation = _a.stopPropagation, stopImmediatePropagation = _a.stopImmediatePropagation;
         // @ts-ignore "this" shall(!) be shadowed
