@@ -233,15 +233,15 @@
   }
 
   Object.assign(DOMMaLiProto,{
-  /**** reportsDragging ****/
+  /**** recognizesDragging ****/
 
-    reportsDragging: function (this:DOMMaLi):boolean {
+    recognizesDragging: function (this:DOMMaLi):boolean {
       return this.recognizesDraggingFor('@this')
     },
 
-  /**** reportsDraggingFor ****/
+  /**** recognizesDraggingFor ****/
 
-    reportsDraggingFor: function (this:DOMMaLi, Selector:string):boolean {
+    recognizesDraggingFor: function (this:DOMMaLi, Selector:string):boolean {
       if ((Selector === '@this') || (Selector.trim() === '')) {
         Selector = '@this'
       }
@@ -255,17 +255,17 @@
       )
     },
 
-  /**** reportDragging ****/
+  /**** recognizeDragging ****/
 
-    reportDragging: function (
+    recognizeDragging: function (
       this:DOMMaLi, Options?:DraggingOptions
     ):DOMMaLi {
-      return this.reportDraggingFor('@this',Options)
+      return this.recognizeDraggingFor('@this',Options)
     },
 
-  /**** reportDraggingFor ****/
+  /**** recognizeDraggingFor ****/
 
-    reportDraggingFor: function (
+    recognizeDraggingFor: function (
       this:DOMMaLi, Selector:string, Options?:DraggingOptions
     ):void {
       if ((Selector === '@this') || (Selector.trim() === '')) {
@@ -363,8 +363,8 @@
         Selector = '@this'
       }
 
-      if (! this.reportsDraggingFor(Selector)) {
-        this.reportDraggingFor(Selector,Options)
+      if (! this.recognizesDraggingFor(Selector)) {
+        this.recognizeDraggingFor(Selector,Options)
       }
 
       let {
