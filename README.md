@@ -83,6 +83,19 @@ The first example (see [JSBin](https://jsbin.com/qomisod)) illustrates how to in
 
 
 
+### Window Dragging ###
+
+(see [JSBin](https://jsbin.com/hemomar))
+
+```
+   const $ = dommali
+   $(() => {
+     $(document.body).provideSimpleDraggingFor('.Dialog',{
+       onlyFrom:'.Titlebar', neverFrom:'.CloseButton',
+       rightLimit:30, bottomLimit:30
+     })
+   })
+```
 
 
 ## Build Instructions ##
