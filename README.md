@@ -126,7 +126,7 @@ $('#Arena').on('dragging-started', '.Circle', async function (
 
 <img src="img/rasteredDragging.png" width=300 height=200 align="right">
 
-The next example (see [JSBin](https://jsbin.com/kogades) for a live demo) illustrates how to add a custom feature to the plain dragging shown above. In this case, the top left position of draggable elements is simply restricted to the intersection points of a 20x20 grid:
+The second example (see [JSBin](https://jsbin.com/kogades) for a live demo) illustrates how to add a custom feature to the plain dragging shown above. In this case, the top left position of draggable elements is simply restricted to the intersection points of a 20x20 grid:
 
 ```
  $('#Arena').recognizeDraggingFor('.Square', { minOffsetX:4, minOffsetY:4 })
