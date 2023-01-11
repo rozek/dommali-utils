@@ -159,7 +159,7 @@ The second example (see [JSBin](https://jsbin.com/kogades) for a live demo) illu
 
 ### Continuous Slider ###
 
-<img src="img/continuousSlider.png" width=160 height=60 align="right">
+<img src="img/continuousSlider.png" width=160 height=60>
 
 (see [JSBin](https://jsbin.com/junujug) for a live demo)
 
