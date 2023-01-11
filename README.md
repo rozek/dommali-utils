@@ -96,33 +96,66 @@ The first example (see [JSBin](https://jsbin.com/miwomis) for a live demo) illus
 Please note the use of function and fat-arrow literals depending on the intended use of the current `this` object.
 
 ```
-    $('#Arena').recognizeDraggingFor('.Circle', { minOffsetX:4, minOffsetY:4 })
-    $('#Arena').on('dragging-started', '.Circle', async function (
-      Event, Extras, curX,curY, StartX,StartY
-    ) {
-      let $Draggable = $(Event.target)
-      let $Container = $Draggable.parent()
+$('#Arena').recognizeDraggingFor('.Circle', { minOffsetX:4, minOffsetY:4 })
+$('#Arena').on('dragging-started', '.Circle', async function (
+  Event, Extras, curX,curY, StartX,StartY
+) {
+  let $Draggable = $(Event.target)
+  let $Container = $Draggable.parent()
 
-      let initialPosition = $Draggable.positionInParent()
-      let OffsetX = initialPosition.left-StartX
-      let OffsetY = initialPosition.top -StartY
+  let initialPosition = $Draggable.positionInParent()
+  let OffsetX = initialPosition.left-StartX
+  let OffsetY = initialPosition.top -StartY
 
-      await this.repeatUntil('dragging-finished','dragging-aborted',async () => {
-        $Draggable.css({ left:(curX+OffsetX)+'px', top:(curY+OffsetY)+'px' })
+  await this.repeatUntil('dragging-finished','dragging-aborted',async () => {
+    $Draggable.css({ left:(curX+OffsetX)+'px', top:(curY+OffsetY)+'px' })
 
-        Event = await this.waitFor('dragging-continued','dragging-finished','dragging-aborted')
-        if (Event.type !== 'dragging-aborted') {
-          [Extras,curX,curY] = $.extraParametersOfEvent(Event)
-        }
-      })
-
-      if (Event.type === 'dragging-aborted') {
-        $Draggable.css({ left:initialPosition.left+'px', top:initialPosition.top+'px' })
-      }
-    })
+    Event = await this.waitFor('dragging-continued','dragging-finished','dragging-aborted')
+    if (Event.type !== 'dragging-aborted') {
+      [Extras,curX,curY] = $.extraParametersOfEvent(Event)
+    }
   })
+
+  if (Event.type === 'dragging-aborted') {
+    $Draggable.css({ left:initialPosition.left+'px', top:initialPosition.top+'px' })
+  }
+})
 ```
 
+### Rastered Dragging ###
+
+<img src="img/rasteredDragging.png" width=300 height=200 align="right">
+
+The next example (see [JSBin](https://jsbin.com/kogades) for a live demo) ... 
+
+```
+ $('#Arena').recognizeDraggingFor('.Square', { minOffsetX:4, minOffsetY:4 })
+ $('#Arena').on('dragging-started', '.Square', async function (
+   Event, Extras, curX,curY, StartX,StartY
+ ) {
+   let $Draggable = $(Event.target)
+   let $Container = $Draggable.parent()
+
+   let initialPosition = $Draggable.positionInParent()
+   let OffsetX = initialPosition.left-StartX
+   let OffsetY = initialPosition.top -StartY
+
+   await this.repeatUntil('dragging-finished','dragging-aborted',async () => {
+     let x = 20*Math.round((curX+OffsetX)/20)
+     let y = 20*Math.round((curY+OffsetY)/20)
+     $Draggable.css({ left:x+'px', top:y+'px' })
+
+     Event = await this.waitFor('dragging-continued','dragging-finished','dragging-aborted')
+     if (Event.type !== 'dragging-aborted') {
+       [Extras,curX,curY] = $.extraParametersOfEvent(Event)
+     }
+   })
+
+   if (Event.type === 'dragging-aborted') {
+     $Draggable.css({ left:initialPosition.left+'px', top:initialPosition.top+'px' })
+   }
+ })
+```
 
 
 ### Window Dragging ###
@@ -132,13 +165,13 @@ Please note the use of function and fat-arrow literals depending on the intended
 The following example (see [JSBin](https://jsbin.com/vihitaw) for a live demo) illustrates how to make all elements with the CSS class `Dialog` draggable within their parent (which should usually be the whole document body, but is restricted to a given `<div/>` in the live demo in order to show the `rightLimit` and `bottomLimit` options):
 
 ```
-   const $ = dommali
-   $(() => {
-     $(document.body).provideSimpleDraggingFor('.Dialog',{
-       onlyFrom:'.Titlebar', neverFrom:'.CloseButton',
-       rightLimit:30, bottomLimit:30
-     })
-   })
+const $ = dommali
+$(() => {
+  $(document.body).provideSimpleDraggingFor('.Dialog',{
+    onlyFrom:'.Titlebar', neverFrom:'.CloseButton',
+    rightLimit:30, bottomLimit:30
+  })
+})
 ```
 
 
