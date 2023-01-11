@@ -73,18 +73,6 @@ These implementations may be customized using the following `simpleDraggingOptio
 
 If `provideSimpleDragging` or `provideSimpleDraggingFor` are applied without previously installing a corresponding dragging recognizer, such a recognizer is implicitly installed using the given options.
 
-In the end, a typical application looks like below (navigate to [JSBin](https://jsbin.com/hemomar) to try it yourself)
-
-```
-   const $ = dommali
-   $(() => {
-     $(document.body).provideSimpleDraggingFor('.Dialog',{
-       onlyFrom:'.Titlebar', neverFrom:'.CloseButton',
-       rightLimit:30, bottomLimit:30
-     })
-   })
-```
-
 #### Element-specific Dragging ####
 
 * **`provideSimpleDragging (Options?:simpleDraggingOptions):void`**<br>
