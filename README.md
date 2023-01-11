@@ -62,7 +62,7 @@ Multiple delegated recognizers with different selectors may be installed in the 
 
 ### Simple Dragging ###
 
-Based on the "Dragging Recognizers" described above, `provideSimpleDragging` and `provideSimpleDraggingFor` provide directly usable implementations for elements which may be dragged around within their parents.
+Based on the "Dragging Recognizers" described above, `provideSimpleDragging` and `provideSimpleDraggingFor` offer directly usable implementations for elements which may be dragged around within their parents.
 
 These implementations may be customized using the following `simpleDraggingOptions` which extend the `DraggingOptions` already mentioned above - again, all settings are optional:
 
