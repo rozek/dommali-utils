@@ -4,7 +4,7 @@ various utility functions for DOMMaLi
 
 `dommali-utils` extends the [dommali](https://github.com/rozek/dommali) library by several utility methods which implement various event handling functions, e.g., for element dragging or non-native drag-and-drop.
 
-The idea behind `dommali-utils` is to give a programmer exactly that amount of control (s)he needs - and offer ready-made implementations for anything else. E.g., a typical usage may look as follows (see [JS Bin](https://jsbin.com/qomisod) for a live demo):
+The idea behind `dommali-utils` is to give a programmer exactly that amount of control (s)he needs - and offer ready-made implementations for anything else. E.g., a typical usage may look as follows (see [JS Bin](https://jsbin.com/vihitaw) for a live demo):
 
 ```
    const $ = dommali
