@@ -87,7 +87,7 @@ In the end, a typical application looks like below (navigate to [JSBin](https://
 
 ### Plain Dragging ###
 
-The first example (see [JSBin](https://jsbin.com/qomisod) for a live demo) illustrates how to install a dragging recognizer in a `<div/>` called `#Arena` and listen for its `dragging-xxx` events in order to draw some crosshairs at the current dragging position:
+The first example (see [JSBin](https://jsbin.com/vihitaw) for a live demo) illustrates how to install a dragging recognizer in a `<div/>` called `#Arena` and listen for its `dragging-xxx` events in order to draw some crosshairs at the current dragging position:
 
 ```
   const $ = dommali
