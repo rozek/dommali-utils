@@ -4,7 +4,7 @@ various utility functions for DOMMaLi
 
 `dommali-utils` extends the [dommali](https://github.com/rozek/dommali) library by several utility methods which implement various event handling functions, e.g., for element dragging or non-native drag-and-drop.
 
-The idea behind `dommali-utils` is to give a programmer exactly that amount of control (s)he needs - and offer ready-made implementations for anything else. E.g., a typical usage may look as follows (see [JS Bin](https://jsbin.com/vihitaw) for a live demo):
+The idea behind `dommali-utils` is to give a programmer exactly that amount of control (s)he needs - and offer ready-made implementations for anything else. E.g., a typical usage may look as follows (see [JS Bin](https://jsbin.com/tuzituk) for a live demo):
 
 ```
    const $ = dommali
@@ -197,7 +197,7 @@ The second example (see [JSBin](https://jsbin.com/dihibil) for a live demo) illu
 
 <img src="img/WindowDragging.png" width=300 height=200 align="right">
 
-The following example (see [JSBin](https://jsbin.com/vihitaw) for a live demo) illustrates how to make all elements with the CSS class `Dialog` draggable within their parent (which should usually be the whole document body, but is restricted to a given `<div/>` in the live demo in order to show the `rightLimit` and `bottomLimit` options):
+The following example (see [JSBin](https://jsbin.com/tuzituk) for a live demo) illustrates how to make all elements with the CSS class `Dialog` draggable within their parent (which should usually be the whole document body, but is restricted to a given `<div/>` in the live demo in order to show the `rightLimit` and `bottomLimit` options):
 
 ```
 const $ = dommali
