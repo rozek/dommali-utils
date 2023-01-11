@@ -4,6 +4,20 @@ various utility functions for DOMMaLi
 
 `dommali-utils` extends the [dommali](https://github.com/rozek/dommali) library by several utility methods which implement various event handling functions, e.g., for element dragging or non-native drag-and-drop.
 
+The idea behind `dommali-utils` is to give a programmer exactly that amount of control (s)he needs - and offer ready-made implementations for anything else. E.g., a typical usage may look as follows:
+
+```
+   const $ = dommali
+   $(() => {
+     $(document.body).provideSimpleDraggingFor('.Dialog',{
+       onlyFrom:'.Titlebar', neverFrom:'.CloseButton',
+       rightLimit:30, bottomLimit:30
+     })
+   })
+```
+
+This snippet makes all `<div/>`s with the CSS class `Dialog` draggable from their titlebar. They may be dragged around within the whole document but only so far that a small part of the titlebar always remains visible.
+
 > Please note, that this module is currently under active development - do not expect a stable release before end of January 2023
 
 
