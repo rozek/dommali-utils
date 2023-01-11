@@ -16,7 +16,7 @@ The idea behind `dommali-utils` is to give a programmer exactly that amount of c
    })
 ```
 
-This snippet makes all `<div/>`s with the CSS class `Dialog` draggable from their titlebar. They may be dragged around within the whole document but only so far that a small part of the titlebar always remains visible.
+This snippet makes all `<div/>`s with the CSS class `Dialog` draggable from their titlebar. They may be dragged around within their whole parent but only so far that a small part of the titlebar always remains visible (and therefore accessible).
 
 > Please note, that this module is currently under active development - do not expect a stable release before end of January 2023
 
