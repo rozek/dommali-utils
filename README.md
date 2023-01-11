@@ -87,33 +87,36 @@ If `provideSimpleDragging` or `provideSimpleDraggingFor` are applied without pre
 
 ## Programming Manual ##
 
-### Plain Dragging ###
+### Continuous Dragging ###
+
+<img src="img/continuousDragging.png" width=300 height=200 align="right">
 
 The first example (see [JSBin](https://jsbin.com/vihitaw) for a live demo) illustrates how to install a dragging recognizer in a `<div/>` called `#Arena` and listen for its `dragging-xxx` events in order to draw some crosshairs at the current dragging position:
 
 ```
-  const $ = dommali
-  $(() => {
-    $('#Arena').recognizeDragging({ minOffsetX:4, minOffsetY:4 })
+    $('#Arena').recognizeDraggingFor('.Circle', { minOffsetX:4, minOffsetY:4 })
+    $('#Arena').on('dragging-started', '.Circle', async function (
+      Event, Extras, curX,curY, StartX,StartY
+    ) {
+      let $Draggable = $(Event.target)
+      let $Container = $Draggable.parent()
 
-    let OffsetX = $('#Arena').positionOnPage().left
-    let OffsetY = $('#Arena').positionOnPage().top
-
-    $('#Arena').on('dragging-started',async function (Event) {
-      this.append('<div id="horizontalLine"></div>')
-      this.append('<div id="verticalLine"></div>')
+      let initialPosition = $Draggable.positionInParent()
+      let OffsetX = initialPosition.left-StartX
+      let OffsetY = initialPosition.top -StartY
 
       await this.repeatUntil('dragging-finished','dragging-aborted',async () => {
-        let [Extras, curX,curY] = $.extraParametersOfEvent(Event)
-
-        $('#horizontalLine').css('top', (curY-OffsetY) + 'px')
-        $('#verticalLine')  .css('left',(curX-OffsetX) + 'px')
+        $Draggable.css({ left:(curX+OffsetX)+'px', top:(curY+OffsetY)+'px' })
 
         Event = await this.waitFor('dragging-continued','dragging-finished','dragging-aborted')
+        if (Event.type !== 'dragging-aborted') {
+          [Extras,curX,curY] = $.extraParametersOfEvent(Event)
+        }
       })
 
-      $('#horizontalLine').remove()
-      $('#verticalLine').remove()
+      if (Event.type === 'dragging-aborted') {
+        $Draggable.css({ left:initialPosition.left+'px', top:initialPosition.top+'px' })
+      }
     })
   })
 ```
