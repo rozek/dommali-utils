@@ -91,7 +91,7 @@ If `provideSimpleDragging` or `provideSimpleDraggingFor` are applied without pre
 
 <img src="img/continuousDragging.png" width=300 height=200 align="right">
 
-The first example (see [JSBin](https://jsbin.com/vihitaw) for a live demo) illustrates how to install a dragging recognizer in a `<div/>` called `#Arena` and listen for its `dragging-xxx` events in order to draw some crosshairs at the current dragging position:
+The first example (see [JSBin](https://jsbin.com/miwomis) for a live demo) illustrates how to install a dragging recognizer in a `<div/>` called `#Arena` (in order to make all inner elements with CSS class `Circle` draggable) and then to listen for `dragging-xxx` events in order to implement the actual dragging. The example does not offer much functionality but may be used as a starting point for more complex implementations.
 
 Please note the use of function and fat-arrow literals depending on the intended use of the current `this` object.
 
