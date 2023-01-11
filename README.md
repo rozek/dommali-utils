@@ -93,6 +93,8 @@ If `provideSimpleDragging` or `provideSimpleDraggingFor` are applied without pre
 
 The first example (see [JSBin](https://jsbin.com/vihitaw) for a live demo) illustrates how to install a dragging recognizer in a `<div/>` called `#Arena` and listen for its `dragging-xxx` events in order to draw some crosshairs at the current dragging position:
 
+Please note the use of function and fat-arrow literals depending on the intended use of the current `this` object.
+
 ```
     $('#Arena').recognizeDraggingFor('.Circle', { minOffsetX:4, minOffsetY:4 })
     $('#Arena').on('dragging-started', '.Circle', async function (
