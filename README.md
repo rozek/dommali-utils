@@ -122,7 +122,8 @@ The first example (see [JSBin](https://jsbin.com/vihitaw) for a live demo) illus
 
 ### Window Dragging ###
 
-The following example (see [JSBin](https://jsbin.com/hemomar) for a live demo) illustrates how to make all elements with the CSS class `Dialog` draggable within their parent (which should usually be the whole document body, but is restricted to a given `<div/>` in the live demo in order to show the `rightLimit` and `bottomLimit` options):
+<img src="img/WindowDragging.png" width=600 height=400 style="float:right">
+The following example (see [JSBin](https://jsbin.com/vihitaw) for a live demo) illustrates how to make all elements with the CSS class `Dialog` draggable within their parent (which should usually be the whole document body, but is restricted to a given `<div/>` in the live demo in order to show the `rightLimit` and `bottomLimit` options):
 
 ```
    const $ = dommali
