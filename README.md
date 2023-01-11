@@ -187,7 +187,7 @@ The second example (see [JSBin](https://jsbin.com/kogades) for a live demo) illu
       })
 
       if (Event.type === 'dragging-aborted') {
-        $Draggable.css({ left:initialPosition.left+'px', top:initialPosition.top+'px' })
+        $Draggable.css('left',initialPosition.left+'px')
       }
     })
   })
