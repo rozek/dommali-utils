@@ -157,6 +157,41 @@ The second example (see [JSBin](https://jsbin.com/kogades) for a live demo) illu
  })
 ```
 
+### Continuous Slider ###
+
+<img src="img/continuousSlider.png" width=160 height=60 align="right">
+
+(see [JSBin](https://jsbin.com/junujug) for a live demo)
+
+```
+  const $ = dommali
+  $(() => {
+    $(document.body).recognizeDraggingFor('.Slider', { alwaysFrom:'.Slider-Knob' })
+    $(document.body).on('dragging-started', '.Slider', async function (
+      Event, Extras, curX,curY, StartX,StartY
+    ) {
+      let $Draggable = $(Event.target).find('.Slider-Knob')
+      let $Container = $(Event.target)
+
+      let initialPosition = $Draggable.positionInParent()
+      let OffsetX = initialPosition.left-StartX
+
+      await this.repeatUntil('dragging-finished','dragging-aborted',async () => {
+        let x = Math.max(0,Math.min(curX+OffsetX,$Container.width()-20))
+        $Draggable.css('left', x+'px')
+
+        Event = await this.waitFor('dragging-continued','dragging-finished','dragging-aborted')
+        if (Event.type !== 'dragging-aborted') {
+          [Extras,curX,curY] = $.extraParametersOfEvent(Event)
+        }
+      })
+
+      if (Event.type === 'dragging-aborted') {
+        $Draggable.css({ left:initialPosition.left+'px', top:initialPosition.top+'px' })
+      }
+    })
+  })
+```
 
 ### Window Dragging ###
 
