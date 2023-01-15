@@ -90,6 +90,175 @@
     return (ValueList.indexOf(Value) >= 0)
   }                     // no automatic unboxing of boxed values and vice-versa!
 
+  export type ClickOptions = {
+    onlyFrom?:string, neverFrom?:string,
+    maxOffsetX?:number, maxOffsetY?:number,
+    stopPropagation?:boolean, stopImmediatePropagation?:boolean,
+    Extras?:any
+  }
+
+/**** normalizedClickOptions ****/
+
+  function normalizedClickOptions (Options?:ClickOptions):ClickOptions {
+    let {
+      onlyFrom, neverFrom,
+      maxOffsetX, maxOffsetY,
+      Extras,
+      stopPropagation, stopImmediatePropagation
+    } = Options || {}
+      if (! ValueIsString(onlyFrom))   { onlyFrom  = undefined }
+      if (! ValueIsString(neverFrom))  { neverFrom = undefined }
+
+      if (! ValueIsNumberInRange(maxOffsetX, 0,Infinity, false)) { maxOffsetX = undefined }
+      if (! ValueIsNumberInRange(maxOffsetY, 0,Infinity, false)) { maxOffsetY = undefined }
+
+      if (stopPropagation          !== true) { stopPropagation          = false }
+      if (stopImmediatePropagation !== true) { stopImmediatePropagation = false }
+    return {
+      onlyFrom, neverFrom,
+      maxOffsetX, maxOffsetY,
+      Extras,
+      stopPropagation, stopImmediatePropagation
+    }
+  }
+
+/**** handleClickOf ****/
+
+  async function handleClickOf (
+    $Clickable:DOMMaLi, Event:PointerEvent, Options:ClickOptions
+  ):Promise<void> {
+    if (Event.button !== 0) { return }
+
+    let {
+      onlyFrom, neverFrom,
+      maxOffsetX, maxOffsetY,
+      Extras,
+      stopPropagation, stopImmediatePropagation
+    } = Options
+
+    let EventTarget = Event.target as Element
+
+    if ((onlyFrom  != null) && ! EventTarget.matches(onlyFrom))  { return }
+    if ((neverFrom != null) &&   EventTarget.matches(neverFrom)) { return }
+
+    let StartX = Event.pageX, DraggingStarted = false
+    let StartY = Event.pageY
+
+    let PointerId = Event.pointerId
+    EventTarget.setPointerCapture(PointerId)
+      for (;;) {
+        Event = await $Clickable.waitFor('pointerdown','pointermove','pointerup','pointercancel')
+        if (Event.pointerId !== PointerId) {// important for multi-touch devices
+          break
+        }
+
+        switch (true) {
+          case (Event.type === 'pointerup'):
+            if (stopPropagation          == true) { Event.stopPropagation() }
+            if (stopImmediatePropagation == true) { Event.stopImmediatePropagation() }
+
+            $Clickable.trigger('clicked',[Extras, Event])
+            break
+          case (Event.type === 'pointermove'):
+            if (
+              (maxOffsetX == null) || (Math.abs(Event.pageX-StartX) > maxOffsetX) ||
+              (maxOffsetY == null) || (Math.abs(Event.pageY-StartY) > maxOffsetY)
+            ) {
+              DraggingStarted = true
+            }
+            break
+        }
+        if ((Event.type !== 'pointermove') || (DraggingStarted === true)) { break }
+      }
+//  EventTarget.releasePointerCapture(PointerId) // will be released anyway
+  }
+
+  Object.assign(DOMMaLiProto,{
+  /**** recognizesClick ****/
+
+    recognizesClick: function (this:DOMMaLi):boolean {
+      return this.recognizesClickFor('@this')
+    },
+
+  /**** recognizesClickFor ****/
+
+    recognizesClickFor: function (this:DOMMaLi, Selector:string):boolean {
+      if ((Selector === '@this') || (Selector.trim() === '')) {
+        Selector = '@this'
+      }
+
+      return (
+        (this.Subjects.length > 0) &&
+        this.Subjects.every((Subject:indexableElement) => (
+          (Subject['_dommali_Click'] != null) &&
+          (typeof Subject['_dommali_Click'][Selector] === 'function')
+        ))
+      )
+    },
+
+  /**** recognizeClick ****/
+
+    recognizeClick: function (
+      this:DOMMaLi, Options?:ClickOptions
+    ):DOMMaLi {
+      return this.recognizeClickFor('@this',Options)
+    },
+
+  /**** recognizeClickFor ****/
+
+    recognizeClickFor: function (
+      this:DOMMaLi, Selector:string, Options?:ClickOptions
+    ):void {
+      if ((Selector === '@this') || (Selector.trim() === '')) {
+        Selector = '@this'
+      }
+
+      Options = normalizedClickOptions(Options)
+
+      this.ignoreClickFor(Selector)         // never enable any recognizer twice
+
+      this.forEach(($Element:DOMMaLi) => {
+        function Handler (Event:PointerEvent) {
+          if (Selector === '@this') {
+            handleClickOf($Element, Event, Options as ClickOptions)
+          } else {
+            let Candidate = (Event.target as Element).closest(Selector)
+            if (Candidate != null) {
+              handleClickOf($(Candidate), Event, Options as ClickOptions)
+            }
+          }
+        }
+
+        $Element.on('pointerdown',Handler)
+        $Element.prop('_dommali_Click',Handler)
+      })
+
+      return this
+    },
+
+  /**** ignoreClick ****/
+
+    ignoreClick: function (this:DOMMaLi):DOMMaLi {
+      return this.ignoreClickFor('@this')
+    },
+
+  /**** ignoreClickFor ****/
+
+    ignoreClickFor: function (this:DOMMaLi, Selector:string):void {
+      if ((Selector === '@this') || (Selector.trim() === '')) {
+        Selector = '@this'
+      }
+
+      this.forEach(($Element:DOMMaLi) => {
+        let HandlerSet = $Element.prop('_dommali_Click')
+        if ((HandlerSet != null) && (typeof HandlerSet[Selector] === 'function')) {
+          $Element.off('pointerdown',HandlerSet[Selector])
+          $Element.removeProp('_dommali_Click')
+        }
+      })
+    }
+  })
+
   export const DraggingDirections = ['x','y','both']
   export type  DraggingDirection  = typeof DraggingDirections[number]
 
@@ -176,7 +345,7 @@
 
       for (;;) {
         Event = await $Draggable.waitFor('pointerdown','pointermove','pointerup','pointercancel')
-        if (Event.pointerId !== PointerId) {
+        if (Event.pointerId !== PointerId) {// important for multi-touch devices
           if (DraggingStarted) {
             $Draggable.trigger('dragging-aborted',[Extras, StartX,StartY, Event])
           }
@@ -214,8 +383,8 @@
               $Draggable.trigger('dragging-continued',[Extras, Event.pageX,Event.pageY, Event])
             } else {
               if (
-                (minOffsetX == null) || (Math.abs(Event.pageX-StartX) > minOffsetX) ||
-                (minOffsetY == null) || (Math.abs(Event.pageY-StartY) > minOffsetY)
+                (minOffsetX == null) || (Math.abs(Event.pageX-StartX) >= minOffsetX) ||
+                (minOffsetY == null) || (Math.abs(Event.pageY-StartY) >= minOffsetY)
               ) {
                 let absOffsetX = Math.abs(Event.pageX-StartX)
                 let absOffsetY = Math.abs(Event.pageY-StartY)
@@ -236,7 +405,7 @@
         }
         if ((Event.type === 'pointerup') || (Event.type === 'pointercancel')) { break }
       }
-    EventTarget.releasePointerCapture(PointerId)
+//  EventTarget.releasePointerCapture(PointerId) // will be released anyway
   }
 
   Object.assign(DOMMaLiProto,{
