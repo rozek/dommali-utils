@@ -1,6 +1,6 @@
 {
   "name": "dommali-utils",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "various utility functions for the DOMMaLi library",
   "type": "module",
   "main": "./dist/dommali-utils.js",
