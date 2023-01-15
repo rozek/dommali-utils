@@ -105,6 +105,153 @@ function ValueIsString(Value) {
 function ValueIsOneOf(Value, ValueList) {
     return (ValueList.indexOf(Value) >= 0);
 } // no automatic unboxing of boxed values and vice-versa!
+/**** normalizedClickOptions ****/
+function normalizedClickOptions(Options) {
+    var _a = Options || {}, onlyFrom = _a.onlyFrom, neverFrom = _a.neverFrom, maxOffsetX = _a.maxOffsetX, maxOffsetY = _a.maxOffsetY, Extras = _a.Extras, stopPropagation = _a.stopPropagation, stopImmediatePropagation = _a.stopImmediatePropagation;
+    if (!ValueIsString(onlyFrom)) {
+        onlyFrom = undefined;
+    }
+    if (!ValueIsString(neverFrom)) {
+        neverFrom = undefined;
+    }
+    if (!ValueIsNumberInRange(maxOffsetX, 0, Infinity, false)) {
+        maxOffsetX = undefined;
+    }
+    if (!ValueIsNumberInRange(maxOffsetY, 0, Infinity, false)) {
+        maxOffsetY = undefined;
+    }
+    if (stopPropagation !== true) {
+        stopPropagation = false;
+    }
+    if (stopImmediatePropagation !== true) {
+        stopImmediatePropagation = false;
+    }
+    return {
+        onlyFrom: onlyFrom,
+        neverFrom: neverFrom,
+        maxOffsetX: maxOffsetX,
+        maxOffsetY: maxOffsetY,
+        Extras: Extras,
+        stopPropagation: stopPropagation,
+        stopImmediatePropagation: stopImmediatePropagation
+    };
+}
+/**** handleClickOf ****/
+function handleClickOf($Clickable, Event, Options) {
+    return __awaiter(this, void 0, void 0, function () {
+        var onlyFrom, neverFrom, maxOffsetX, maxOffsetY, Extras, stopPropagation, stopImmediatePropagation, EventTarget, StartX, DraggingStarted, StartY, PointerId;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (Event.button !== 0) {
+                        return [2 /*return*/];
+                    }
+                    onlyFrom = Options.onlyFrom, neverFrom = Options.neverFrom, maxOffsetX = Options.maxOffsetX, maxOffsetY = Options.maxOffsetY, Extras = Options.Extras, stopPropagation = Options.stopPropagation, stopImmediatePropagation = Options.stopImmediatePropagation;
+                    EventTarget = Event.target;
+                    if ((onlyFrom != null) && !EventTarget.matches(onlyFrom)) {
+                        return [2 /*return*/];
+                    }
+                    if ((neverFrom != null) && EventTarget.matches(neverFrom)) {
+                        return [2 /*return*/];
+                    }
+                    StartX = Event.pageX, DraggingStarted = false;
+                    StartY = Event.pageY;
+                    PointerId = Event.pointerId;
+                    EventTarget.setPointerCapture(PointerId);
+                    _a.label = 1;
+                case 1: return [4 /*yield*/, $Clickable.waitFor('pointerdown', 'pointermove', 'pointerup', 'pointercancel')];
+                case 2:
+                    Event = _a.sent();
+                    if (Event.pointerId !== PointerId) { // important for multi-touch devices
+                        return [3 /*break*/, 4];
+                    }
+                    switch (true) {
+                        case (Event.type === 'pointerup'):
+                            if (stopPropagation == true) {
+                                Event.stopPropagation();
+                            }
+                            if (stopImmediatePropagation == true) {
+                                Event.stopImmediatePropagation();
+                            }
+                            $Clickable.trigger('clicked', [Extras, Event]);
+                            break;
+                        case (Event.type === 'pointermove'):
+                            if ((maxOffsetX == null) || (Math.abs(Event.pageX - StartX) > maxOffsetX) ||
+                                (maxOffsetY == null) || (Math.abs(Event.pageY - StartY) > maxOffsetY)) {
+                                DraggingStarted = true;
+                            }
+                            break;
+                    }
+                    if ((Event.type !== 'pointermove') || (DraggingStarted === true)) {
+                        return [3 /*break*/, 4];
+                    }
+                    _a.label = 3;
+                case 3: return [3 /*break*/, 1];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+Object.assign(DOMMaLiProto, {
+    /**** recognizesClick ****/
+    recognizesClick: function () {
+        return this.recognizesClickFor('@this');
+    },
+    /**** recognizesClickFor ****/
+    recognizesClickFor: function (Selector) {
+        if ((Selector === '@this') || (Selector.trim() === '')) {
+            Selector = '@this';
+        }
+        return ((this.Subjects.length > 0) &&
+            this.Subjects.every(function (Subject) { return ((Subject['_dommali_Click'] != null) &&
+                (typeof Subject['_dommali_Click'][Selector] === 'function')); }));
+    },
+    /**** recognizeClick ****/
+    recognizeClick: function (Options) {
+        return this.recognizeClickFor('@this', Options);
+    },
+    /**** recognizeClickFor ****/
+    recognizeClickFor: function (Selector, Options) {
+        if ((Selector === '@this') || (Selector.trim() === '')) {
+            Selector = '@this';
+        }
+        Options = normalizedClickOptions(Options);
+        this.ignoreClickFor(Selector); // never enable any recognizer twice
+        this.forEach(function ($Element) {
+            function Handler(Event) {
+                if (Selector === '@this') {
+                    handleClickOf($Element, Event, Options);
+                }
+                else {
+                    var Candidate = Event.target.closest(Selector);
+                    if (Candidate != null) {
+                        handleClickOf($(Candidate), Event, Options);
+                    }
+                }
+            }
+            $Element.on('pointerdown', Handler);
+            $Element.prop('_dommali_Click', Handler);
+        });
+        return this;
+    },
+    /**** ignoreClick ****/
+    ignoreClick: function () {
+        return this.ignoreClickFor('@this');
+    },
+    /**** ignoreClickFor ****/
+    ignoreClickFor: function (Selector) {
+        if ((Selector === '@this') || (Selector.trim() === '')) {
+            Selector = '@this';
+        }
+        this.forEach(function ($Element) {
+            var HandlerSet = $Element.prop('_dommali_Click');
+            if ((HandlerSet != null) && (typeof HandlerSet[Selector] === 'function')) {
+                $Element.off('pointerdown', HandlerSet[Selector]);
+                $Element.removeProp('_dommali_Click');
+            }
+        });
+    }
+});
 var DraggingDirections = ['x', 'y', 'both'];
 /**** normalizedDraggingOptions ****/
 function normalizedDraggingOptions(Options) {
@@ -187,7 +334,7 @@ function handleDraggingOf($Draggable, Event, Options) {
                 case 1: return [4 /*yield*/, $Draggable.waitFor('pointerdown', 'pointermove', 'pointerup', 'pointercancel')];
                 case 2:
                     Event = _b.sent();
-                    if (Event.pointerId !== PointerId) {
+                    if (Event.pointerId !== PointerId) { // important for multi-touch devices
                         if (DraggingStarted) {
                             $Draggable.trigger('dragging-aborted', [Extras, StartX, StartY, Event]);
                         }
@@ -238,8 +385,8 @@ function handleDraggingOf($Draggable, Event, Options) {
                         $Draggable.trigger('dragging-continued', [Extras, Event.pageX, Event.pageY, Event]);
                     }
                     else {
-                        if ((minOffsetX == null) || (Math.abs(Event.pageX - StartX) > minOffsetX) ||
-                            (minOffsetY == null) || (Math.abs(Event.pageY - StartY) > minOffsetY)) {
+                        if ((minOffsetX == null) || (Math.abs(Event.pageX - StartX) >= minOffsetX) ||
+                            (minOffsetY == null) || (Math.abs(Event.pageY - StartY) >= minOffsetY)) {
                             absOffsetX = Math.abs(Event.pageX - StartX);
                             absOffsetY = Math.abs(Event.pageY - StartY);
                             if ((initialDirection === 'both') ||
@@ -263,9 +410,7 @@ function handleDraggingOf($Draggable, Event, Options) {
                     }
                     _b.label = 11;
                 case 11: return [3 /*break*/, 1];
-                case 12:
-                    EventTarget.releasePointerCapture(PointerId);
-                    return [2 /*return*/];
+                case 12: return [2 /*return*/];
             }
         });
     });

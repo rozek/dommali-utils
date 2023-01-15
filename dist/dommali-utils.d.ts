@@ -1,3 +1,12 @@
+export type ClickOptions = {
+    onlyFrom?: string;
+    neverFrom?: string;
+    maxOffsetX?: number;
+    maxOffsetY?: number;
+    stopPropagation?: boolean;
+    stopImmediatePropagation?: boolean;
+    Extras?: any;
+};
 export declare const DraggingDirections: string[];
 export type DraggingDirection = typeof DraggingDirections[number];
 export type DraggingOptions = {
